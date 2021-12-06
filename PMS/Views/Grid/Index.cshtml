@@ -1,0 +1,175 @@
+﻿@model List<PMS.EntityModel.Product>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<div class="container">
+    <br />
+    <div style="width:90%; margin:0 auto;">
+        <table id="example" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>PurchasedPurchasedQuantity</th>
+                    <th>PricePerPiece</th>
+                    <th>SKU</th>
+                    <th>Barcode</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+
+        <table id="example1" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Extn.</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var result = [
+            {
+                
+                "hr": {
+                    "position": "System Architect",
+                    "salary": "$320,800",
+                    "start_date": "2011/04/25"
+                },
+                "contact": [
+                    "Edinburgh",
+                    "5421"
+                ],
+                "name": "Tiger Nixon"
+            },
+            {
+                
+                "hr": {
+                    "position": "Accountant",
+                    "salary": "$170,750",
+                    "start_date": "2011/07/25"
+                },
+                "contact": [
+                    "Tokyo",
+                    "8422"
+                ],
+                "name": "Garrett Winters"
+            },
+            {
+                
+                "hr": {
+                    "position": "Junior Technical Author",
+                    "salary": "$86,000",
+                    "start_date": "2009/01/12"
+                },
+                "contact": [
+                    "San Francisco",
+                    "1562"
+                ],
+                "name": "Ashton Cox"
+            }
+        ];
+
+        $('#example1').DataTable( {
+            "processing": true,
+            "data": result,
+            "columns": [
+                { "data": "name" },
+                { "data": "hr.position" },
+                { "data": "contact.0" },
+                { "data": "contact.1" },
+                { "data": "hr.start_date" },
+                { "data": "hr.salary" }
+            ]
+        } );
+
+
+    $("#example").DataTable({
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "ajax": {
+                    "url": "/Grid/LoadData",
+                        "type": "POST",
+                        "datatype": "json"
+                },
+                "columns": [
+                    { "data": "id"},
+                    { "data": "name" },
+                    { "data": "description" },
+                    { "data": "quantity" },
+                    { "data": "price" },
+                    { "data": "sku" },
+                    { "data": "barcode" },
+                    { "data": "address" },
+                    { "data": "city" },
+                    { "data": "state" },
+
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<a class="btn btn-info" href="/Grid/Edit/' + full.Id + '">Edit</a>'; }
+                    },
+                    {
+                        data: null, render: function (data, type, row)
+                        {
+                            return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.Id + "'); >Delete</a>";
+                        }
+                    },
+                ]
+
+            });
+
+    });
+
+
+    function DeleteData(CustomerID)
+        {
+            if (confirm("Are you sure you want to delete ...?"))
+            {
+                Delete(CustomerID);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        function Delete(CustomerID)
+    {
+        var url = '@Url.Content("~/")' + "Grid/Delete";
+
+        $.post(url, { ID: CustomerID }, function (data)
+                {
+                    if (data)
+                    {
+                        oTable = $('#example').DataTable();
+                        oTable.draw();
+                    }
+                    else
+                    {
+                        alert("Something Went Wrong!");
+                    }
+                });
+    }
+
+</script>
+

@@ -94,5 +94,43 @@ namespace PMS.Helper
                 FileName = entityModel.FileName
             };
         }
+
+        public static OrderVM ToViewModel(this Order entityModel)
+        {
+            return new OrderVM
+            {
+                Id = entityModel.Id,
+                NoOfUnitSold = entityModel.NoOfUnitSold,
+                OrderId = entityModel.OrderId,
+                PlatformId = entityModel.PlatformId,
+                ProductSpecificationId = entityModel.ProductSpecificationId,
+                Other = entityModel.Other
+            };
+        }
+
+        public static Order ToEntity(this OrderVM viewModel)
+        {
+            return new Order
+            {
+                NoOfUnitSold = viewModel.NoOfUnitSold,
+                OrderId = viewModel.OrderId,
+                PlatformId = viewModel.PlatformId,
+                ProductSpecificationId = viewModel.ProductSpecificationId,
+                Other = viewModel.Other
+            };
+        }
+
+        public static Order ToEntity(this OrderVM viewModel, Order entityModel)
+        {
+            entityModel ??= new Order();
+
+            entityModel.Id = viewModel.Id;
+            entityModel.NoOfUnitSold = viewModel.NoOfUnitSold;
+            entityModel.OrderId = viewModel.OrderId;
+            entityModel.PlatformId = viewModel.PlatformId;
+            entityModel.ProductSpecificationId = viewModel.ProductSpecificationId;
+            entityModel.Other = viewModel.Other;
+            return entityModel;
+        }
     }
 }

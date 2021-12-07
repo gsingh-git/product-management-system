@@ -13,5 +13,7 @@ namespace PMS
         public DbSet<ProductCategory> ProductCategory { get; set; }
         public DbSet<ProductSpecificationDetail> ProductSpecificationDetail { get; set; }
         public DbSet<ProductSpecifications> ProductSpecifications { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
     }
 }

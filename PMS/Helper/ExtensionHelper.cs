@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace PMS.Helper
@@ -19,6 +21,16 @@ namespace PMS.Helper
         public static bool IsAny<T>(this IEnumerable<T> enumerable)
         {
             return enumerable?.Any() == true;
+        }
+
+        public static DateTime ToDateTime(this string date, string dateFormat = "MM/dd/yyyy")
+        {
+            DateTime.TryParseExact(date,
+                        dateFormat,
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None, out DateTime dt);
+
+            return dt;
         }
     }
 }

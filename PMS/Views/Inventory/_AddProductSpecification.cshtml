@@ -9,18 +9,22 @@
     <th>
         @if (@Model.FileName != null)
         {
-            <img src="~/uploads/@Model.FileName" alt="my img" style="height: 50px;width: 50px"/>
+            <img src="~/uploads/@Model.FileName" alt="my img" style="height: 50px;width: 50px" />
 
         }
-        <input type="file" class="form-control-file" name="productSpecification[@ViewData["index"]].ProductImage"/>
+        <input type="file" class="form-control-file" name="productSpecification[@ViewData["index"]].ProductImage" />
     </th>
-    <th><input type="text" class="form-control" name="productSpecification[@ViewData["index"]].PurchasedQuantity" value="@Model.PurchasedQuantity" /></th>
+    <th>
+        <a href="#" name="productSpecification[@ViewData["index"]].PurchasedQuantity" onclick="GetPurchasedQuantityDetails(0,@Model.Id,@Model.ProductId)">@Model.PurchasedQuantity</a>
+
+        @*<input type="text" class="form-control" name="productSpecification[@ViewData["index"]].PurchasedQuantity" value="@Model.PurchasedQuantity" />*@
+    </th>
     <th>
         <input type="text" class="form-control" name="productSpecification[@ViewData["index"]].PricePerPiece" value="@Model.PricePerPiece" />
     </th>
     <th>
-        
-        <input type="text" class="form-control" name="productSpecification[@ViewData["index"]].TotalInstockQuantity" value="@Model.TotalInstockQuantity" />
+        <a href="#" name="productSpecification[@ViewData["index"]].TotalInstockQuantity" onclick="GetSpecificatonDetails(0,@Model.Id,@Model.ProductId)">@Model.TotalInstockQuantity</a>
+        @*<input type="text" class="form-control" name="productSpecification[@ViewData["index"]].TotalInstockQuantity" value="@Model.TotalInstockQuantity" />*@
 
     </th>
     <th>

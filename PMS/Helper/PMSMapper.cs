@@ -1,5 +1,7 @@
 ﻿using PMS.EntityModel;
 using PMS.ViewModels;
+using System;
+using System.Globalization;
 
 namespace PMS.Helper
 {
@@ -128,6 +130,31 @@ namespace PMS.Helper
             entityModel.NoOfUnitSold = viewModel.NoOfUnitSold;
             entityModel.OrderId = viewModel.OrderId;
             entityModel.PlatformId = viewModel.PlatformId;
+            entityModel.ProductSpecificationId = viewModel.ProductSpecificationId;
+            entityModel.Other = viewModel.Other;
+            return entityModel;
+        }
+
+        public static ProductPurchaseHistoryVM ToViewModel(this ProductPurchaseHistory entityModel)
+        {
+            return new ProductPurchaseHistoryVM
+            {
+                Id = entityModel.Id,
+                ProductSpecificationId = entityModel.ProductSpecificationId,
+                PurchaseDate = entityModel.PurchasedDate.ToString(Constants.DateFormat),
+                Other = entityModel.Other,
+                PurchaseQuantity = entityModel.PurchasedQuantity
+            };
+        }
+
+        public static ProductPurchaseHistory ToEntity(this ProductPurchaseHistoryVM viewModel, ProductPurchaseHistory entityModel)
+        {
+            entityModel ??= new ProductPurchaseHistory();
+
+            entityModel.Id = viewModel.Id;
+            entityModel.PricePerUnit = viewModel.PricePerUnit;
+            entityModel.PurchasedQuantity = viewModel.PurchaseQuantity;
+            entityModel.PurchasedDate = string.IsNullOrEmpty(viewModel.PurchaseDate) ? DateTime.Now : viewModel.PurchaseDate.ToDateTime();
             entityModel.ProductSpecificationId = viewModel.ProductSpecificationId;
             entityModel.Other = viewModel.Other;
             return entityModel;

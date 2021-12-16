@@ -9,6 +9,8 @@ namespace PMS.ViewModels
     {
         public long Id { get; set; }
         public long ProductSpecificationId { get; set; }
+        public long ProductId { get; set; }
+        public string Product { get; set; }
         public string OrderId { get; set; }
         public int PlatformId { get; set; }
         public int NoOfUnitSold { get; set; }

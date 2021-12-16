@@ -1,0 +1,50 @@
+﻿@model List<PMS.ViewModels.OrderVM>
+<div class="table-responsive">
+    <!--Table-->
+    <table class="table table-striped">
+
+        <!--Table head-->
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Order Id</th>
+                <th>No Of Unit Sold</th>
+                <th>Platform</th>
+                <th>Other</th>
+                <th>Action</th>
+                
+            </tr>
+        </thead>
+        <!--Table head-->
+        <!--Table body-->
+        <tbody>
+
+            @if (Model != null && Model.Count > 0)
+            {
+                var index = 0;
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <th scope="row">@order.Id</th>
+                        <td>@order.OrderId</td>
+                        <td>@order.NoOfUnitSold</td>
+                        <td>@order.PlatformId </td>
+                        <td>@order.Other</td>
+                        <td>
+                            <a class="btn btn-light" onclick="GetSpecificatonDetails(@order.ProductSpecificationId)">Edit</a>
+                        </td>                       
+                    </tr>
+                    index++;
+                }
+            }
+            else
+            {
+                <tr id="rwNoRecord">
+                    <th align="center" colspan="10">No Records Found</th>
+                </tr>
+            }
+        </tbody>
+        <!--Table body-->
+    </table>
+    <!--Table-->
+</div>

@@ -88,4 +88,66 @@
             alert("First add product then add the specification.");
         }
     });
+
+    function GetSpecificatonDetails(id, productSpecificationId, productId) {
+        $.ajax({
+            url: '/Order/UpsertOrder',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { "id": 0, "productSpecificationId": productSpecificationId, "productId": productId},
+            cache: false,
+            success: function (data) {
+                //Fill div with results                
+                $('#orderContainer').html(data); 
+                $('#orderModal').modal('show');  
+                GetOrderBySpecificatonId(productSpecificationId);
+            },
+            error: function (xhr, status, error) {
+                alert("Error occured");
+            }
+        });
+    }
+
+    $("#closbtn").click(function () {
+        $('#myModal').modal('hide');
+    }); 
+
+    function GetOrderBySpecificatonId(id) {
+        $.ajax({
+            url: '/Order/GetProductOrder/' + id,
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { "id": id },
+            cache: false,
+            success: function (data) {
+                //Fill div with results                
+                $('#orderList').html(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Error occured");
+            }
+        });
+    }
+
+    function GetPurchasedQuantityDetails(id, productSpecificationId, productId) {
+        $.ajax({
+            url: '/Product/Upsert',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { "id": 0, "productSpecificationId": productSpecificationId, "productId": productId },
+            cache: false,
+            success: function (data) {
+                //Fill div with results                
+                $('#orderContainer').html(data);
+                $('#orderModal').modal('show');
+                //GetOrderBySpecificatonId(productSpecificationId);
+            },
+            error: function (xhr, status, error) {
+                alert("Error occured");
+            }
+        });
+    }
 </script>

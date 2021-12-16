@@ -30,6 +30,7 @@ namespace PMS.Controllers
             //todo: implement caching
             //var productCategories = HttpContext.Cache.Get HttpContext.Cache["regions"] as IEnumerable<ProductCategory>;
             var categories = _unitOfWork.Repository<ProductCategory>().GetAll();
+            var pla = _unitOfWork.Repository<Platform>().GetAll();
             return categories.ToList();
         }
 

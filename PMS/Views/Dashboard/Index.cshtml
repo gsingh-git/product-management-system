@@ -1,0 +1,153 @@
+﻿@model PMS.ViewModels.DashboardVM
+@{
+    ViewData["Title"] = "Index";
+}
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />*@
+<div class="main-panel">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card-counter info">
+                <i class="fa fa-users"></i>
+                <span class="count-numbers">@Model.TotalInventoryCount</span>
+                <span class="count-name">Inventory</span>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card-counter info">
+                <i class="fa fa-users"></i>
+                <span class="count-numbers">@Model.UniqueProductCount</span>
+                <span class="count-name">Unique Inventory</span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card-counter primary">
+                <i class="fa fa-code-fork"></i>
+                <span class="count-numbers">@Model.TotalPurchasedInventoryCount</span>
+                <span class="count-name">Purchased Inventory</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card-counter danger">
+                <i class="fa fa-ticket"></i>
+                <span class="count-numbers">@Model.OutOfStockCount</span>
+                <span class="count-name">Low Stock</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card-counter success">
+                <i class="fa fa-database"></i>
+                <span class="count-numbers">@Model.DiscontinuedProductCount</span>
+                <span class="count-name">Discontinued Inventory</span>
+            </div>
+        </div>
+    </div>
+    <!--<div class="row">
+        <div class="col-xl-6 grid-margin stretch-card flex-column">
+            <h5 class="mb-2 text-titlecase mb-4">Status statistics</h5>
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card style-shadow-left-bottom bg-success">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <p class="mb-0 text-white">Sales</p>
+                                <p class="mb-0 text-white">+1.37%</p>
+                            </div>
+                            <h4>1352</h4>
+                            <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card style-shadow-left-bottom bg-danger">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <p class="mb-2 text-white">Amazon</p>
+                                    <h6 class="mb-0">563</h6>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-white">Flipkart</p>
+                                    <h6 class="mb-0">720</h6>
+                                </div>
+                                <div>
+                                    <p class="mb-2 text-white">Meesho</p>
+                                    <h6 class="mb-0">5900</h6>
+                                </div>
+                            </div>
+                            <canvas id="sales-chart-a" class="mt-auto" height="65"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row h-100">
+                <div class="col-md-6 stretch-card grid-margin grid-margin-md-0">
+                    <div class="card style-shadow-left-bottom bg-info">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <p class="text-white">In Transit</p>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h3 class="mb-">50</h3>-->
+    @*<h3 class="mb-">78%</h3>*@
+    <!--</div>
+                <canvas id="sales-chart-b" class="mt-auto" height="38"></canvas>
+            </div>
+        </div>
+    </div>-->
+    @*<div class="col-md-6 stretch-card">
+            <div class="card style-shadow-left-bottom bg-warning">
+                <div class="card-body">
+                    <div class="row h-100">
+                        <div class="col-6 d-flex flex-column justify-content-between">
+                            <p class="text-white">Low Inv.</p>
+                            <h4>55</h4>
+                            <canvas id="cpu-chart" class="mt-auto"></canvas>
+                        </div>
+                        <div class="col-6 d-flex flex-column justify-content-between">
+                            <p class="text-white">Inactive</p>
+                            <h4>12</h4>
+                            <canvas id="memory-chart" class="mt-auto"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <!--<div class="col-md-6 stretch-card">
+        <div class="card style-shadow-left-bottom bg-warning">
+            <div class="card-body d-flex flex-column justify-content-between h-100">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="mb-0 text-white">Returns</p>-->
+    @*<p class="mb-0 text-white">1%</p>*@
+    <!--</div>
+                            <h4>1</h4>
+                            <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 grid-margin stretch-card flex-column">
+            <h5 class="mb-2 text-titlecase mb-4">Income statistics</h5>
+            <div class="row h-100">
+                <div class="col-md-12 stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start flex-wrap">
+                                <div>
+                                    <p class="mb-3">Monthly Increase</p>
+                                    <h3>67842</h3>
+                                </div>
+                                <div id="income-chart-legend" class="d-flex flex-wrap mt-1 mt-md-0"></div>
+                            </div>
+                            <canvas id="income-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>

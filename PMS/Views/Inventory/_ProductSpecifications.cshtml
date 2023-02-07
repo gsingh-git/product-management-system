@@ -1,0 +1,153 @@
+﻿@model List<PMS.ViewModels.ProductSpecificationVM>
+<style>
+    fieldset.specification-border {
+        border: 1px groove #ddd !important;
+        padding: 0 1.4em 1.4em 1.4em !important;
+        margin: 0 0 1.5em 0 !important;
+        -webkit-box-shadow: 0px 0px 0px 0px #000;
+        box-shadow: 0px 0px 0px 0px #000;
+        width: 100%;
+    }
+
+    legend.specification-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width: auto;
+        padding: 0 10px;
+        border-bottom: none;
+    }
+</style>
+<fieldset class="specification-border">
+    <legend class="specification-border">Product Specification</legend>
+    <div class="form-group">
+        <a id="btnAddSpecification" class="btn btn-info" href="#">Add New</a>
+    </div>
+    <div class=" form-group control-group">
+        <table id="dvProductSpecification" class="table table-striped table-bordered table-responsive" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Image</th>
+                    <th>Purchased Quantity</th>
+                    <th>Base Price</th>
+                    <th>Total Instock</th>
+                    <th>Other</th>
+                    <th>Category</th>
+                    <th>Specification</th>
+                    <th>Is Discontinued</th>
+                    <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                var index = 0;
+                @foreach (var specification in Model)
+                {
+                    Html.RenderPartial("_AddProductSpecification", specification, new ViewDataDictionary(this.ViewData) { { "index", index } });
+                    index++;
+                }
+            }
+            else
+            {
+                <tr id="rwNoRecord">
+                    <th align="center" colspan="10">No Records Found</th>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+</fieldset>
+
+<script type="text/javascript">
+    $("#btnAddSpecification").click(function(e) {
+        e.preventDefault();
+        var productId = $("#hdnProductId").val();
+        if (productId > 0) {
+            $.ajax({
+                url: '/Inventory/GetProductSpecification/',
+                contentType: 'application/html; charset=utf-8',  
+                type: 'GET' ,  
+                dataType: 'html',
+                data: { "id": productId },  
+                cache:false,
+                success: function(data) {
+                    $("#rwNoRecord").hide();
+                    //Fill div with results
+                    $('#dvProductSpecification tbody').append(data);
+                    window.location.href = window.location.href;
+
+                },
+                error: function (xhr, status, error) {
+                    alert("Error occured");
+                }
+            });
+        } else {
+            alert("First add product then add the specification.");
+        }
+    });
+
+    function GetSpecificatonDetails(id, productSpecificationId, productId) {
+        $.ajax({
+            url: '/Order/UpsertOrder',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { "id": 0, "productSpecificationId": productSpecificationId, "productId": productId},
+            cache: false,
+            success: function (data) {
+                //Fill div with results                
+                $('#orderContainer').html(data); 
+                $('#orderModal').modal('show');  
+                GetOrderBySpecificatonId(productSpecificationId);
+            },
+            error: function (xhr, status, error) {
+                alert("Error occured");
+            }
+        });
+    }
+
+    $("#closbtn").click(function () {
+        $('#myModal').modal('hide');
+    }); 
+
+    function GetOrderBySpecificatonId(id) {
+        $.ajax({
+            url: '/Order/GetProductOrder/' + id,
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { "id": id },
+            cache: false,
+            success: function (data) {
+                //Fill div with results                
+                $('#orderList').html(data);
+            },
+            error: function (xhr, status, error) {
+                alert("Error occured");
+            }
+        });
+    }
+
+    function GetPurchasedQuantityDetails(id, productSpecificationId, productId) {
+        $.ajax({
+            url: '/Product/Upsert',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html',
+            data: { "id": 0, "productSpecificationId": productSpecificationId, "productId": productId },
+            cache: false,
+            success: function (data) {
+                //Fill div with results                
+                $('#orderContainer').html(data);
+                $('#orderModal').modal('show');
+                //GetOrderBySpecificatonId(productSpecificationId);
+            },
+            error: function (xhr, status, error) {
+                alert("Error occured");
+            }
+        });
+    }
+</script>

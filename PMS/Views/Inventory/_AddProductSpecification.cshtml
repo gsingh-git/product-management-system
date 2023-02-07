@@ -1,0 +1,76 @@
+﻿@model PMS.ViewModels.ProductSpecificationVM
+<tr>
+    <th>
+        <input type="hidden" name="productSpecification[@ViewData["index"]].ProductId" value="@Model.ProductId" />
+        <input type="hidden" name="productSpecification[@ViewData["index"]].Id" value="@Model.Id" />
+        <input type="hidden" name="productSpecification[@ViewData["index"]].FileName" value="@Model.FileName" />
+        <label>@Model.Id</label>
+    </th>
+    <th>
+        @if (@Model.FileName != null)
+        {
+            <img src="~/uploads/@Model.FileName" alt="my img" style="height: 50px;width: 50px" />
+
+        }
+        <input type="file" class="form-control-file" name="productSpecification[@ViewData["index"]].ProductImage" />
+    </th>
+    <th>
+        <a href="#" name="productSpecification[@ViewData["index"]].PurchasedQuantity" onclick="GetPurchasedQuantityDetails(0,@Model.Id,@Model.ProductId)">@Model.PurchasedQuantity</a>
+
+        @*<input type="text" class="form-control" name="productSpecification[@ViewData["index"]].PurchasedQuantity" value="@Model.PurchasedQuantity" />*@
+    </th>
+    <th>
+        <input type="text" class="form-control" name="productSpecification[@ViewData["index"]].PricePerPiece" value="@Model.PricePerPiece" />
+    </th>
+    <th>
+        <a href="#" name="productSpecification[@ViewData["index"]].TotalInstockQuantity" onclick="GetSpecificatonDetails(0,@Model.Id,@Model.ProductId)">@Model.TotalInstockQuantity</a>
+        @*<input type="text" class="form-control" name="productSpecification[@ViewData["index"]].TotalInstockQuantity" value="@Model.TotalInstockQuantity" />*@
+
+    </th>
+    <th>
+        <input type="text" class="form-control" name="productSpecification[@ViewData["index"]].Other" value="@Model.Other" />
+
+    </th>
+    <th>
+        <select name="productSpecification[@ViewData["index"]].ProductCategoryId" class="form-control">
+            <option value="0">Select Category</option>
+            @foreach (var sp in ViewBag.ProductCategories)
+            {
+                if (sp.Id == Model.ProductCategoryId)
+                {
+                    <option selected="selected" value="@sp.Id">@sp.Name</option>
+
+                }
+                else
+                {
+                    <option value="@sp.Id">@sp.Name</option>
+
+                }
+            }
+        </select>
+    </th>
+    <th>
+        <select name="productSpecification[@ViewData["index"]].SpecificationId" class="form-control">
+            <option value="0">Select Specification</option>
+            @foreach (var sp in ViewBag.ProductSpecification)
+            {
+                if (sp.Id == Model.SpecificationId)
+                {
+                    <option selected="selected" value="@sp.Id">@sp.Name</option>
+
+                }
+                else
+                {
+                    <option value="@sp.Id">@sp.Name</option>
+
+                }
+            }
+        </select>
+    </th>
+    <th>
+        <input type="checkbox" class="form-control" name="productSpecification[@ViewData["index"]].IsDeleted" value="true" @(Model.IsDeleted ? "checked" : "") />
+    </th>
+    <th>
+        <input type="checkbox" class="form-control" name="productSpecification[@ViewData["index"]].IsActive" value="true" @(Model.IsActive ? "checked" : "") />
+    </th>
+</tr>
